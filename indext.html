@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       <h1>HEAD</h1>
+       <style>
+        #box {
+        width: 250px;
+        height: 250px;
+      
+        }
+        .redbox {background-color: red;}
+        .bluebox {background-color: blue;}
+    </style>
+    </head>
+    <body>
+        <p> ok</p>
+        <div id="box" class="redbox"></div> 
+        <script>
+            const box = document.querySelector('#box');
+            box.addEventListener("click", (event) => {
+                if (box.classList.contains("redbox")) {    
+                    box.classList.remove("redbox");
+                    box.classList.add("bluebox");
+                
+                }
+                else if(box.classList.contains("bluebox")) {
+                    box.classList.remove("bluebox");
+                    box.classList.add("redbox");
+                }
+    
+            });
+        </script> 
+    </body>
+    <!--- ... --->
+
+
+</html>
