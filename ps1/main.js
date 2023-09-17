@@ -38,12 +38,7 @@ for(const id of getAllHoleIds()) {
        
 
 
-    })
-
-    ;
-    
-    console.log(btn);
-    console.log(`TODO: Add a click listener for #${id} here`);
+    });
 }
 
 /**
