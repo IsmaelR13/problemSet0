@@ -101,7 +101,7 @@ inputEl.addEventListener('keydown', (ev) => {
             showInfoMessage("Your guess must be ${WORD_LENGTH} letters long.");
         }
         else if (guess === correctAnswer) {
-            showInfoMessage("You win! The answer was ${correctAnswer}";
+            showInfoMessage("You win! The answer was ${correctAnswer}");
             inputEl.disabled = 'True';
         
         }
@@ -114,6 +114,7 @@ inputEl.addEventListener('keydown', (ev) => {
                 }
                 else {
                     showInfoMessage("${guess} is not a valid word.");
+
                 }
                 
             });
