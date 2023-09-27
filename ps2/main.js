@@ -98,7 +98,7 @@ inputEl.addEventListener('keydown', (ev) => {
     if (ev.key === 'Enter')  {
         guess = ev.target.value;
         if (guess.length !== WORD_LENGTH) {
-            showInfoMessage("Your guess must be ${WORD_LENGTH} letters long.");
+            showInfoMessage('Your guess must be ${WORD_LENGTH} letters long.');
         }
         else if (guess === correctAnswer) {
             showInfoMessage("You win! The answer was ${correctAnswer}");
