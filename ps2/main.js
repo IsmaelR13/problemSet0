@@ -53,25 +53,20 @@ function displayGuessFeedback(guess) {
         const letter = guess[i].toUpperCase();
         const correctLetter = correctAnswer[i].toUpperCase();
         const gspan = document.createElement('span');
+        gspan.innerHTML = letter;
+        gdiv.appendChild(gspan);
+        gspan.classList.add('letter');
+        
         if(letter === correctLetter) {
-            gspan.classList.add('letter');
             gspan.classList.add('correct');
-            gspan.innerHTML = letter;
-            gdiv.appendChild(gspan);
 
         }
         else if (correctAnswer.toUpperCase().includes(letter)) {
-            gspan.classList.add('letter');
             gspan.classList.add('present');
-            gspan.innerHTML = letter;
-            gdiv.appendChild(gspan);
 
         }
         else {
-            gspan.classList.add('letter');
             gspan.classList.add('absent');
-            gspan.innerHTML = letter;
-            gdiv.appendChild(gspan);
 
         }
 
@@ -98,10 +93,10 @@ inputEl.addEventListener('keydown', (ev) => {
     if (ev.key === 'Enter')  {
         guess = ev.target.value;
         if (guess.length !== WORD_LENGTH) {
-            showInfoMessage('Your guess must be ${WORD_LENGTH} letters long.');
+            showInfoMessage(`Your guess must be ${WORD_LENGTH} letters long.`);
         }
         else if (guess === correctAnswer) {
-            showInfoMessage("You win! The answer was ${correctAnswer}");
+            showInfoMessage(`You win! The answer was ${correctAnswer}`);
             inputEl.disabled = 'True';
         
         }
@@ -113,7 +108,7 @@ inputEl.addEventListener('keydown', (ev) => {
                     displayGuessFeedback(guess);
                 }
                 else {
-                    showInfoMessage("${guess} is not a valid word.");
+                    showInfoMessage(`${guess} is not a valid word.`);
 
                 }
                 
