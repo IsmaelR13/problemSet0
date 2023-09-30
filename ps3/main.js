@@ -55,16 +55,11 @@ function setSelectedIndex(index) {
 
 }
 window.addEventListener('click', (ev) =>{
-    const img = document.getElementById(ev.target.id);
-    if (img.classList.contains('selected')) {
-        clearTimeout(selectionTimeout);
-    }
-    else {
+
         const index = eventList.findIndex(obj => {
             return `thumb-${obj.id}` === ev.target.id;
         })
     
         setSelectedIndex(index);
-    }
     
 });
