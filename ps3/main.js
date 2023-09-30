@@ -57,7 +57,7 @@ function setSelectedIndex(index) {
 window.addEventListener('click', (ev) =>{
     const img = document.getElementById(ev.target.id);
     if (img.classList.contains('selected')) {
-        setSelectedIndex(priorIndex);
+        clearTimeout(selectionTimeout);
     }
     else {
         const index = eventList.findIndex(obj => {
