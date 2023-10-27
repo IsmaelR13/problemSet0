@@ -82,13 +82,11 @@ async function play() {
         
         answers.addEventListener('click', (event) => {
 
-            console.log(correctAnswers);
-            console.log(event.toElement.outerText);
-            const clickedAnswer = event.toElement.outerText;
-            console.log(event);
-            if (event.toElement.localName == 'button'){
-                console.log(event.toElement.parentElement.parentElement);
-                object = event.toElement.parentElement;
+            const clickedAnswer = event.srcElement.innerText;
+    
+            if (event.srcElement.localName == 'button'){
+                console.log(event.srcElement.parentElement.parentElement);
+                object = event.srcElement.parentElement;
                 qObjectlist = object.parentElement.getElementsByTagName("button");
                 for (x = 0; x < qObjectlist.length; x++){
                     qObjectlist[x].disabled = true;
