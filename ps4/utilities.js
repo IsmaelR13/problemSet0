@@ -1,13 +1,5 @@
-function shuffleArray(array) {
-    const shuffledArray = array.slice(); // Copy the array
-
-    // Shuffle the copy of the array using https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
-    for (let i = shuffledArray.length - 1; i > 0; i--) { // For each index,
-        const j = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
-        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]; // Swap elements i and j
-    }
-    return shuffledArray; // Return the shuffled copy
-}
+import _, { set } from 'lodash';
+import { DateTime } from "luxon";
 
 function fetchWithCache(url, options = {}, cacheDuration = 1000 * 60 * 60) { // Default cache duration is 1 hour
     // Utility function to create a Response object from data (like fetch() would)
@@ -43,10 +35,37 @@ function fetchWithCache(url, options = {}, cacheDuration = 1000 * 60 * 60) { // 
         });
 }
 
+document.querySelector('body').prepend(document.createElement('h1'), document.createElement('h2'));
+header = document.querySelector('h1');
+timer = document.querySelector('h2')
+updateTime();
+const timeOut = DateTime.now().plus({minutes:1}).toLocaleString(DateTime.TIME_SIMPLE);
+let timeLeft = DateTime.fromFormat(timeOut, 'h:mm a').diff(DateTime.now(), ['minutes','seconds']);
+timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat('m:ss')} time left`
+
+async function updateTime() {
+    timeNow = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+    header.innerText = timeNow;
+    console.log(timeOut);
+
+    timeLeft = DateTime.fromFormat(timeOut, 'h:mm a').diff(DateTime.now(), ['minutes','seconds']);
+    timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat('m:ss')} time left`
+    if (timeLeft.minutes == 0 && timeLeft.toFormat('s') == 0) {
+        window.alert(`Time is up! Your Score: ${qCorrect} of ${qCount}\nClose to try again!`)
+        location.reload()
+    }
+    
+}
+
+
+
 let qCount = 0;
 let qCorrect = 0;
 const score = document.querySelector('#score');
 async function play() {
+    
+    setInterval(updateTime, 1000);
+    
     const response = await fetchWithCache("https://the-trivia-api.com/v2/questions");
     const value = await response.json();
     
@@ -61,9 +80,9 @@ async function play() {
         for (y = 0; y < value[i].incorrectAnswers.length; y++) {
             qlist.push(value[i].incorrectAnswers[y]);
         }
-        qlist.push(value[i].correctAnswer);
-        correctAnswers.push(value[i].correctAnswer);
-        qlist = shuffleArray(qlist);
+        qlist.push(value[i].correctAnswer.trim());
+        correctAnswers.push(value[i].correctAnswer.trim());
+        qlist = _.shuffle(qlist);
         
         const answers = document.createElement('ul');
         for (y = 0; y < qlist.length; y++){
@@ -83,15 +102,15 @@ async function play() {
         answers.addEventListener('click', (event) => {
 
             const clickedAnswer = event.srcElement.innerText;
-    
+            
             if (event.srcElement.localName == 'button'){
-                console.log(event.srcElement.parentElement.parentElement);
                 object = event.srcElement.parentElement;
                 qObjectlist = object.parentElement.getElementsByTagName("button");
                 for (x = 0; x < qObjectlist.length; x++){
                     qObjectlist[x].disabled = true;
                 }
-
+                console.log(correctAnswers)
+                console.log(clickedAnswer)
                 if (correctAnswers.includes(clickedAnswer)) {
                     object.append('👈', ('✔️'));
                     qCount++;
@@ -102,20 +121,25 @@ async function play() {
                 else {
                     object.append('❌');
                     for (x = 0; x < qObjectlist.length; x++) {
-                        console.log(qObjectlist[x]);
+                        
+
+
                         if (correctAnswers.includes(qObjectlist[x].innerText)){
                             qObjectlist[x].parentElement.append('👈');
                         }
                     }
                     qCount++;
-
+                    
                 }
-
-                score.innerText = `Your Score: ${qCorrect} of ${qCount}`
+        
+                score.innerText = `Your Score: ${qCorrect} of ${qCount}`;
             }
 
         });
+    
+        
     }
+
 }
 
 play();
