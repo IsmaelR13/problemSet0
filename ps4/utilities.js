@@ -80,7 +80,7 @@ async function play() {
 
         let qlist = [];
     
-        for (y = 0; y < value[i].incorrectAnswers.length; y++) {
+        for (let y = 0; y < value[i].incorrectAnswers.length; y++) {
             qlist.push(value[i].incorrectAnswers[y]);
         }
         qlist.push(value[i].correctAnswer.trim());
@@ -88,7 +88,7 @@ async function play() {
         qlist = _.shuffle(qlist);
         
         const answers = document.createElement('ul');
-        for (y = 0; y < qlist.length; y++){
+        for (let y = 0; y < qlist.length; y++){
             const answer = document.createElement('li')
             const button = document.createElement('button');
            
@@ -109,7 +109,7 @@ async function play() {
             if (event.srcElement.localName == 'button'){
                 object = event.srcElement.parentElement;
                 qObjectlist = object.parentElement.getElementsByTagName("button");
-                for (x = 0; x < qObjectlist.length; x++){
+                for (let x = 0; x < qObjectlist.length; x++){
                     qObjectlist[x].disabled = true;
                 }
                 console.log(correctAnswers)
@@ -123,7 +123,7 @@ async function play() {
                 }
                 else {
                     object.append('❌');
-                    for (x = 0; x < qObjectlist.length; x++) {
+                    for (let x = 0; x < qObjectlist.length; x++) {
                         
 
 
