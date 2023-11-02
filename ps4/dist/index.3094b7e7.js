@@ -606,10 +606,11 @@ function fetchWithCache(url, options = {}, cacheDuration = 3600000) {
         return getResponseObject(data);
     });
 }
-document.querySelector("body").prepend(document.createElement("h1"), document.createElement("h2"));
+document.querySelector("body").prepend(document.createElement("h2"));
+document.querySelector("body").prepend(document.createElement("h1"));
+console.log(document.querySelector("body"));
 header = document.querySelector("h1");
 timer = document.querySelector("h2");
-updateTime();
 const timeOut = (0, _luxon.DateTime).now().plus({
     minutes: 1
 }).toLocaleString((0, _luxon.DateTime).TIME_SIMPLE);
@@ -618,6 +619,7 @@ let timeLeft = (0, _luxon.DateTime).fromFormat(timeOut, "h:mm a").diff((0, _luxo
     "seconds"
 ]);
 timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat("m:ss")} time left`;
+updateTime();
 async function updateTime() {
     timeNow = (0, _luxon.DateTime).now().toLocaleString((0, _luxon.DateTime).DATETIME_SHORT);
     header.innerText = timeNow;
@@ -682,7 +684,7 @@ async function play() {
 }
 play();
 
-},{"lodash":"3qBDj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","luxon":"dpK6X"}],"3qBDj":[function(require,module,exports) {
+},{"lodash":"3qBDj","luxon":"dpK6X","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3qBDj":[function(require,module,exports) {
 var global = arguments[3];
 (function() {
     /** Used as a safe reference for `undefined` in pre-ES5 environments. */ var undefined;
@@ -14914,36 +14916,6 @@ var global = arguments[3];
     root._ = _;
 }).call(this);
 
-},{}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
 },{}],"dpK6X":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", {
@@ -21494,6 +21466,36 @@ exports.Settings = Settings;
 exports.SystemZone = SystemZone;
 exports.VERSION = VERSION;
 exports.Zone = Zone;
+
+},{}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["d5jaN","2DqlB"], "2DqlB", "parcelRequire8c16")
 
