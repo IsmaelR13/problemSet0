@@ -44,10 +44,10 @@ const timer = document.querySelector('h2')
 const timeOut = DateTime.now().plus({minutes:1}).toLocaleString(DateTime.TIME_SIMPLE);
 
 let timeLeft = DateTime.fromFormat(timeOut, 'h:mm a').diff(DateTime.now(), ['minutes','seconds']);
-git timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat('m:ss')} time left`
+timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat('m:ss')} time left`
 updateTime();
 async function updateTime() {
-    timeNow = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+    const timeNow = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
     header.innerText = timeNow;
     console.log(timeOut);
 
@@ -74,7 +74,7 @@ async function play() {
     
     const body = document.querySelector('body')
     let correctAnswers = [];
-    for (i = 0; i < value.length; i++) {
+    for (let i = 0; i < value.length; i++) {
         const question = document.createElement('p');
         question.innerText = value[i].question.text;
 
