@@ -40,7 +40,7 @@ document.querySelector('body').prepend(document.createElement('h1'));
 const header = document.querySelector('h1');
 const timer = document.querySelector('h2')
 
-
+const timeOut = DateTime.now().plus({minutes:1}).toLocaleString(DateTime.TIME_SIMPLE);
 updateTime();
 async function updateTime() {
     const timeNow = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
