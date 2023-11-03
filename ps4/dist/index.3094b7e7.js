@@ -608,22 +608,12 @@ function fetchWithCache(url, options = {}, cacheDuration = 3600000) {
 }
 document.querySelector("body").prepend(document.createElement("h2"));
 document.querySelector("body").prepend(document.createElement("h1"));
-console.log(document.querySelector("body"));
-header = document.querySelector("h1");
-timer = document.querySelector("h2");
-const timeOut = (0, _luxon.DateTime).now().plus({
-    minutes: 1
-}).toLocaleString((0, _luxon.DateTime).TIME_SIMPLE);
-let timeLeft = (0, _luxon.DateTime).fromFormat(timeOut, "h:mm a").diff((0, _luxon.DateTime).now(), [
-    "minutes",
-    "seconds"
-]);
-timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat("m:ss")} time left`;
+const header = document.querySelector("h1");
+const timer = document.querySelector("h2");
 updateTime();
 async function updateTime() {
-    timeNow = (0, _luxon.DateTime).now().toLocaleString((0, _luxon.DateTime).DATETIME_SHORT);
+    const timeNow = (0, _luxon.DateTime).now().toLocaleString((0, _luxon.DateTime).DATETIME_SHORT);
     header.innerText = timeNow;
-    console.log(timeOut);
     timeLeft = (0, _luxon.DateTime).fromFormat(timeOut, "h:mm a").diff((0, _luxon.DateTime).now(), [
         "minutes",
         "seconds"
@@ -643,16 +633,16 @@ async function play() {
     const value = await response.json();
     const body = document.querySelector("body");
     let correctAnswers = [];
-    for(i = 0; i < value.length; i++){
+    for(let i = 0; i < value.length; i++){
         const question = document.createElement("p");
         question.innerText = value[i].question.text;
         let qlist = [];
-        for(y = 0; y < value[i].incorrectAnswers.length; y++)qlist.push(value[i].incorrectAnswers[y]);
+        for(let y = 0; y < value[i].incorrectAnswers.length; y++)qlist.push(value[i].incorrectAnswers[y]);
         qlist.push(value[i].correctAnswer.trim());
         correctAnswers.push(value[i].correctAnswer.trim());
         qlist = (0, _lodashDefault.default).shuffle(qlist);
         const answers = document.createElement("ul");
-        for(y = 0; y < qlist.length; y++){
+        for(let y = 0; y < qlist.length; y++){
             const answer = document.createElement("li");
             const button = document.createElement("button");
             button.innerText = qlist[y];
@@ -663,18 +653,16 @@ async function play() {
         answers.addEventListener("click", (event)=>{
             const clickedAnswer = event.srcElement.innerText;
             if (event.srcElement.localName == "button") {
-                object = event.srcElement.parentElement;
-                qObjectlist = object.parentElement.getElementsByTagName("button");
-                for(x = 0; x < qObjectlist.length; x++)qObjectlist[x].disabled = true;
-                console.log(correctAnswers);
-                console.log(clickedAnswer);
+                const object = event.srcElement.parentElement;
+                const qObjectlist = object.parentElement.getElementsByTagName("button");
+                for(let x = 0; x < qObjectlist.length; x++)qObjectlist[x].disabled = true;
                 if (correctAnswers.includes(clickedAnswer)) {
                     object.append("\uD83D\uDC48", "\u2714\uFE0F");
                     qCount++;
                     qCorrect++;
                 } else {
                     object.append("\u274C");
-                    for(x = 0; x < qObjectlist.length; x++)if (correctAnswers.includes(qObjectlist[x].innerText)) qObjectlist[x].parentElement.append("\uD83D\uDC48");
+                    for(let x = 0; x < qObjectlist.length; x++)if (correctAnswers.includes(qObjectlist[x].innerText)) qObjectlist[x].parentElement.append("\uD83D\uDC48");
                     qCount++;
                 }
                 score.innerText = `Your Score: ${qCorrect} of ${qCount}`;

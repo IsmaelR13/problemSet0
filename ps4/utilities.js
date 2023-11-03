@@ -37,19 +37,15 @@ function fetchWithCache(url, options = {}, cacheDuration = 1000 * 60 * 60) { // 
 
 document.querySelector('body').prepend(document.createElement('h2'));
 document.querySelector('body').prepend(document.createElement('h1'));
-console.log(document.querySelector('body'));
 const header = document.querySelector('h1');
 const timer = document.querySelector('h2')
 
-const timeOut = DateTime.now().plus({minutes:1}).toLocaleString(DateTime.TIME_SIMPLE);
 
-let timeLeft = DateTime.fromFormat(timeOut, 'h:mm a').diff(DateTime.now(), ['minutes','seconds']);
-timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat('m:ss')} time left`
 updateTime();
 async function updateTime() {
     const timeNow = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
     header.innerText = timeNow;
-    console.log(timeOut);
+    
 
     timeLeft = DateTime.fromFormat(timeOut, 'h:mm a').diff(DateTime.now(), ['minutes','seconds']);
     timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat('m:ss')} time left`
@@ -107,13 +103,12 @@ async function play() {
             const clickedAnswer = event.srcElement.innerText;
             
             if (event.srcElement.localName == 'button'){
-                object = event.srcElement.parentElement;
-                qObjectlist = object.parentElement.getElementsByTagName("button");
+                const object = event.srcElement.parentElement;
+                const qObjectlist = object.parentElement.getElementsByTagName("button");
                 for (let x = 0; x < qObjectlist.length; x++){
                     qObjectlist[x].disabled = true;
                 }
-                console.log(correctAnswers)
-                console.log(clickedAnswer)
+                
                 if (correctAnswers.includes(clickedAnswer)) {
                     object.append('👈', ('✔️'));
                     qCount++;
