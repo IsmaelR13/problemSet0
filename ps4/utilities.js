@@ -47,7 +47,7 @@ async function updateTime() {
     header.innerText = timeNow;
     
 
-    const timeLeft = DateTime.fromFormat(timeOut, 'h:mm a').diff(DateTime.now(), ['minutes','seconds']);
+    const dtimeLeft = DateTime.fromFormat(timeOut, 'h:mm a').diff(DateTime.now(), ['minutes','seconds']);
     timer.innerText = `You have until ${timeOut} to answer the questions. You have ${timeLeft.toFormat('m:ss')} time left`
     if (timeLeft.minutes == 0 && timeLeft.toFormat('s') == 0) {
         window.alert(`Time is up! Your Score: ${qCorrect} of ${qCount}\nClose to try again!`)
