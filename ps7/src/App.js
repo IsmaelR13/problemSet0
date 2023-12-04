@@ -134,7 +134,7 @@ const LemonTimer = () => {
         
       />}
 
-      {taskClicked && <button onClick={() => [startSession(true), startedSession = true]}>Start Work Session</button> }
+      {taskClicked && <button onClick={() => [startSession(true), startedSession = true, isWorkW = true]}>Start Work Session</button> }
 
       {startedSession && 
       <div>
